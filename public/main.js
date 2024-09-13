@@ -168,4 +168,4 @@ document.addEventListener('submit', async (event) => {
     return
   }
 })
-// Adiciona um ouvinte de evento que escuta submissões de formulários e executa o código acima de acordo com a ação (create, update ou delete).
+
