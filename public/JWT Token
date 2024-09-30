@@ -1,0 +1,56 @@
+import crypto from 'crypto'
+import express from 'express'
+import cors from 'cors'
+
+const app = express()
+
+app.use(cors())
+app.use(express.json())
+
+const listaDeUsuariosRegistrados = [
+  { id: 1, nome: 'u1', senha: 'p1' },
+  { id: 2, nome: 'u2', senha: 'p1' },
+]
+
+let listaDeTokensGerados: { [k: string]: { id: number, nome: string } } = {
+  // 
+}
+
+const isLogged: express.RequestHandler = (req, res, next) => {
+  const token = req.headers.authorization
+  if (!token)
+    return res.status(401).json({ message: 'Token not found' })
+  if (!listaDeTokensGerados[token])
+    return res.status(401).json({ message: 'Invalid token' })
+  next()
+}
+
+app.post('/login', (req, res) => {
+  const { nome, senha } = req.body
+  const usuarioEncontrado = listaDeUsuariosRegistrados.find(usuario => usuario.nome === nome && usuario.senha === senha)
+  if (usuarioEncontrado === undefined)
+    return res.status(401).json({ message: 'Invalid user' })
+  const token = crypto.randomUUID()
+  listaDeTokensGerados[token] = { nome, id: usuarioEncontrado.id }
+  return res.status(200).json({ token })
+})
+
+app.post('/logout', (req, res) => {
+  const token = req.headers.authorization
+  if (!token)
+    return res.status(401).json({ message: 'Token not found' })
+  if (!listaDeTokensGerados[token])
+    return res.status(401).json({ message: 'Invalid token' })
+  delete listaDeTokensGerados[token]
+  return res.status(200).json({ message: 'Logout success' })
+})
+
+app.post('/check', isLogged, (req, res) => {
+  return res.status(200).json({ message: "DEU CERTO JOW!" })
+})
+
+app.post('/check2', isLogged, (req, res) => {
+  return res.status(200).json({ message: "DEU CERTO JOW! TAMBÉM" })
+})
+
+app.listen(3333, () => console.log(`⚡ Server is running on port ${PORT}`))
