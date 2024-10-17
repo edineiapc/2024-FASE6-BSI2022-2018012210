@@ -83,17 +83,17 @@
   
   form button[data-action=cancel] {
     background-color: transparent;
-    color: #dc3545;
+    color: #3bdc35;
     margin-right: auto;
     padding-inline: .5rem;
   }
   
   form button[data-action=update] {
-    background-color: #007bff;
+    background-color: #ff9100;
   }
   
   form button[data-action=delete] {
-    background-color: #dc3545;
+    background-color: #dc3596;
   }
   
   form button[data-action=create] {
