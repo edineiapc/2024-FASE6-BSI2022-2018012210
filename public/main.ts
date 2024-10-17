@@ -1,27 +1,21 @@
 {
-  "name": "2024-fase6-bsi2022-2018012210",
-  "version": "1.0.0",
-  "description": "",
-  "main":  "dist/app.js",
+
+  "main": "index.js",
   "scripts": {
-    "start": "node dist/app.js",
-    "dev": "nodemon src/app.ts",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
     "build": "tsc -p ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
-    "@types/jsonwebtoken": "^9.0.7",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
